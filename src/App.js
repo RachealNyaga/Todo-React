@@ -1,23 +1,22 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import CompletedTodos from './components/CompletedTodos';
+import Navigation from './components/Navigation';
+import UncompletedTodos from './components/UncompletedTodos';
+import data from "./components/data.js"
+import CreateTodo from './components/CreateTodo';
 
 function App() {
+
+  let [showCreateTodo, setShowCreateTodo] = useState(false);
+  let [todos, setTodos] = useState(data);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Navigation showCreateTodo={showCreateTodo} setShowCreateTodo={setShowCreateTodo} />
+      <UncompletedTodos todos={todos} setTodos={setTodos}/>
+      <CompletedTodos todos={todos} setTodos={setTodos} />
+      {showCreateTodo ? <CreateTodo todos={todos} setTodos={setTodos} setShowCreateTodo={setShowCreateTodo} /> : ""}
     </div>
   );
 }
